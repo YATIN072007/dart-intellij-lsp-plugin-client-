@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dart LSP Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Load Monaco Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Dart Code Analyzer <span class="badge">LSP Prototype</span></h1>
+    </header>
+
+    <div class="main-container" id="desktop">
+        <!-- Editor Window -->
+        <div class="os-window" id="window-editor" style="left: 1%; top: 1%; width: 63%; height: 60%;">
+            <div class="window-header">
+                <h2>Source Code (Dart)</h2>
+                <div class="controls">
+                    <select id="snippetSelector">
+                        <option value="snippet1">1. Syntax Errors</option>
+                        <option value="snippet2">2. Missing Semicolons</option>
+                        <option value="snippet3">3. Unused Variables</option>
+                        <option value="snippet4">4. Undefined References</option>
+                        <option value="snippet5">5. Type Mismatches</option>
+                    </select>
+                    <button id="analyzeBtn" class="btn">Analyze</button>
+                    <button id="runBtn" class="btn btn-success">Run</button>
+                </div>
+            </div>
+            <div id="monaco-editor" class="monaco-container"></div>
+        </div>
+
+        <!-- Diagnostics Window -->
+        <div class="os-window" id="window-diagnostics" style="left: 1%; top: 63%; width: 30%; height: 35%;">
+            <div class="window-header">
+                <h2>Diagnostics</h2>
+            </div>
+            <div class="window-content diagnostics-panel">
+                <ul id="diagnosticsList">
+                    <li class="empty-state">No issues found.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Terminal Window -->
+        <div class="os-window" id="window-terminal" style="left: 32%; top: 63%; width: 32%; height: 35%;">
+            <div class="window-header">
+                <h2>Terminal Output</h2>
+            </div>
+            <div class="window-content terminal-panel">
+                <pre id="terminalOutput" class="terminal-content">Waiting for execution...</pre>
+            </div>
+        </div>
+
+        <!-- LSP Log Window -->
+        <div class="os-window" id="window-logs" style="left: 65%; top: 1%; width: 34%; height: 97%;">
+            <div class="window-header">
+                <h2>LSP Traffic Log</h2>
+            </div>
+            <div class="window-content log-section">
+                <div id="lspLog" class="log-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
