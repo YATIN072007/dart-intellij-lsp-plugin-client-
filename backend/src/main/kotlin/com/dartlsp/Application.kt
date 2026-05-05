@@ -9,10 +9,12 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.http.content.*
+import java.io.File
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
+    val port = System.getenv("PORT")?.toInt() ?: 8080
+    embeddedServer(Netty, port = port, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
 
@@ -30,6 +32,9 @@ fun Application.module() {
     }
 
     routing {
+        staticFiles("/", File("frontend")) {
+            default("index.html")
+        }
         post("/analyze-code") {
             val request = call.receive<AnalyzeRequest>()
             val diagnostics = Analyzer.analyze(request.code)
