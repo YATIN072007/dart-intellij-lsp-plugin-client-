@@ -9,7 +9,7 @@ COPY --chown=gradle:gradle backend/ .
 RUN gradle buildFatJar --no-daemon
 
 # Runtime Stage
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Copy the built fat JAR from the build stage
